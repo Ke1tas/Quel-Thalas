@@ -25,8 +25,8 @@ def main():
         it: It.Iterator = It.Iterator(args.annotation)
         for val in it:
             print(val)
-    except:
-        print("An exception occurred")
+    except Exception as exp:
+        print(exp)
 
 
 if __name__ == '__main__':
