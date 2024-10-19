@@ -28,7 +28,7 @@ def arg_parser() -> argparse.Namespace:
 
 def main():
     args = arg_parser()
-    #d_i.download_images(args.keyword,args.folder)
+    d_i.download_images(args.keyword,args.folder)
     a_c.create_annotation(args.folder, args.annotation)
     it: I.Iterator = I.Iterator(args.annotation)
     for val in it:
