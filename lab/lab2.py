@@ -22,15 +22,26 @@ def create_annotation(folder: str,annotation_path: str)->None:
 
 
 class Iterator:
+
     def __init__(self,annot_file: str):
-        annotations = []
+        self.annotations = []
+        self.counter = 0
         with open(annot_file, mode='r', newline='', encoding='utf-8') as file:
             reader = csv.reader(file)
             for row in reader:
-                annotations += row
+                #print(row)
+                self.annotations += row
+        self.limit = len(self.annotations)
+        #print(self.max)
     def __iter__ (self):
-        for row in self.annotations:
-            yield row['absolute_path'], row['relative_path']
+        return self
+    def __next__(self):
+        if self.counter < self.limit:
+            self.counter += 2
+            return self.annotations[self.counter - 2]
+        else:
+            raise StopIteration
+
 
 
 def main():
@@ -43,7 +54,12 @@ def main():
 
    # download_images(args.keyword,args.folder)
     create_annotation(args.folder,args.annotation)
-
+    it: Iterator = Iterator(args.annotation)
+    #print(it.annotations)
+    for val in it:
+        print(val)
 
 if __name__ == '__main__':
     main()
+
+
