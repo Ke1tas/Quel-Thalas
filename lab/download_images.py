@@ -1,5 +1,6 @@
-from icrawler.builtin import GoogleImageCrawler
 import os
+
+from icrawler.builtin import GoogleImageCrawler
 
 def mkdir(folder: str) -> None:
     """

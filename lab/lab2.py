@@ -1,17 +1,8 @@
 import argparse
-import Iterator as I
-import Annotation_create as a_c
+
+import Annotation_create as ann_cr
 import download_images as d_i
-
-
-
-
-
-
-
-
-
-
+import Iterator as It
 
 
 def arg_parser() -> argparse.Namespace:
@@ -28,9 +19,9 @@ def arg_parser() -> argparse.Namespace:
 
 def main():
     args = arg_parser()
-    d_i.download_images(args.keyword,args.folder)
-    a_c.create_annotation(args.folder, args.annotation)
-    it: I.Iterator = I.Iterator(args.annotation)
+    d_i.download_images(args.keyword, args.folder)
+    ann_cr.create_annotation(args.folder, args.annotation)
+    it: It.Iterator = It.Iterator(args.annotation)
     for val in it:
         print(val)
 
