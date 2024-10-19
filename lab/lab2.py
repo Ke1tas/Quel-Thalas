@@ -18,12 +18,15 @@ def arg_parser() -> argparse.Namespace:
 
 
 def main():
-    args = arg_parser()
-    d_i.download_images(args.keyword, args.folder)
-    ann_cr.create_annotation(args.folder, args.annotation)
-    it: It.Iterator = It.Iterator(args.annotation)
-    for val in it:
-        print(val)
+    try:
+        args = arg_parser()
+        d_i.download_images(args.keyword, args.folder)
+        ann_cr.create_annotation(args.folder, args.annotation)
+        it: It.Iterator = It.Iterator(args.annotation)
+        for val in it:
+            print(val)
+    except:
+        print("An exception occurred")
 
 
 if __name__ == '__main__':
