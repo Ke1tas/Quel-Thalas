@@ -3,17 +3,30 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def hist_show(img:np.ndarray)->None:
+
+def hist(img:np.ndarray)->tuple:
     """
-    Создает гистограмму изображения
-    :param img: Изображение для создания гистограммы
+    Создает гистограммы изображения
+    :param img: изображение для анализа
+    :return: Гистограммы трех цветов
+    """
+    b = cv2.calcHist([img], [0], None, [256], [0, 256])
+    g = cv2.calcHist([img], [1], None, [256], [0, 256])
+    r = cv2.calcHist([img], [2], None, [256], [0, 256])
+    return b,g,r
+
+def hist_show(b:np.ndarray, g:np.ndarray, r:np.ndarray)->None:
+    """
+    Отображает гистограммы для трех цветов
+    :param b: Синяя гистограмма
+    :param g: Зеленая гистограмма
+    :param r: Красная гистограмма
     :return:
     """
-    colors = ('b', 'g', 'r')
     plt.figure(figsize=(10, 5))
-    for i, color in enumerate(colors):
-        hist = cv2.calcHist([img], [i], None, [256], [0, 256])
-        plt.plot(hist, color=color, label=color)
+    plt.plot(b, label='Синяя линия', color='blue')
+    plt.plot(g, label='Зеленая линия', color='green')
+    plt.plot(r, label='Красная линия', color='red')
     plt.xlim([0, 256])
     plt.title('Гистограмма цвета изображения')
     plt.xlabel('Интенсивность цвета')
