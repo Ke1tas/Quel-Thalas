@@ -4,8 +4,12 @@ import numpy as np
 
 
 
-#создание гистограммы
 def hist_show(img:np.ndarray)->None:
+    """
+    Создает гистограмму изображения
+    :param img: Изображение для создания гистограммы
+    :return:
+    """
     colors = ('b', 'g', 'r')
     plt.figure(figsize=(10, 5))
     for i, color in enumerate(colors):
