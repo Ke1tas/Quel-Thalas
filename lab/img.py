@@ -1,9 +1,18 @@
-import numpy as np
-import cv2
+import os
 
-#Загрузка изображения
+import cv2
+import numpy as np
+
+
 def img_load(path: str)-> np.ndarray:
-    return cv2.imread('path')
+    """
+
+    :param path:
+    :return:
+    """
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"Изображение не найдено: {path}")
+    return cv2.imread(path)
 
 
 #Отображение изображения
@@ -19,4 +28,4 @@ def print_resolution(img:np.ndarray)->None:
 
 #Запись
 def img_save(img:np.ndarray, name:str)->None:
-    cv2.imwrite('image2.jpg', img)
+    cv2.imwrite(name, img)
