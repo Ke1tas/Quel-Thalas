@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-
 def hist_show(img:np.ndarray)->None:
     """
     Создает гистограмму изображения

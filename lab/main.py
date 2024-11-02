@@ -5,9 +5,6 @@ import img_combine as ic
 import hist as h
 
 
-
-
-
 def arg_parser() -> argparse.Namespace:
     """
     Получение аргументов из командной строки.
