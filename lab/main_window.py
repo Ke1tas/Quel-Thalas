@@ -37,7 +37,7 @@ class MainWindow(QWidget):
         """
         options = QFileDialog.Options()
         file_name, _ = QFileDialog.getOpenFileName(self, "Выберите файл аннотаций", "",
-                                                   "Text Files (*.txt);;All Files (*)", options=options)
+                                                   "Text Files (*.csv);;All Files (*)", options=options)
         if file_name:
             try:
                 self.iterator = It.Iterator(file_name)
@@ -65,7 +65,10 @@ class MainWindow(QWidget):
                 QMessageBox.critical(self, "Ошибка", f"Произошла ошибка при загрузке изображения: {e}")
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
-    sys.exit(app.exec_())
+    try:
+        app = QApplication(sys.argv)
+        window = MainWindow()
+        window.show()
+        sys.exit(app.exec_())
+    except Exception as e:
+        pass
