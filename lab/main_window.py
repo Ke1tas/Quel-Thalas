@@ -1,6 +1,8 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLabel, QFileDialog, QMessageBox
+
 from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLabel, QFileDialog, QMessageBox
+
 import Iterator as It
 
 
@@ -28,7 +30,11 @@ class MainWindow(QWidget):
 
         self.iterator = None
 
-    def load_annotations(self):
+    def load_annotations(self)->None:
+        """
+        Загружает файл аннотации и передает его итератору.
+        :return: None
+        """
         options = QFileDialog.Options()
         file_name, _ = QFileDialog.getOpenFileName(self, "Выберите файл аннотаций", "",
                                                    "Text Files (*.txt);;All Files (*)", options=options)
@@ -39,7 +45,11 @@ class MainWindow(QWidget):
             except Exception as e:
                 QMessageBox.critical(self, "Ошибка", f"Не удалось загрузить файл аннотаций: {e}")
 
-    def show_next_image(self):
+    def show_next_image(self) -> None:
+        """
+        Передает в image_label следующее изображение из файла аннотации
+        :return: None
+        """
         if self.iterator:
             try:
                 image_path = next(self.iterator)
