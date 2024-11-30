@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLabel, QFileDialog
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLabel, QFileDialog, QMessageBox
 from PyQt5.QtGui import QPixmap
 import Iterator as It
 
@@ -33,17 +33,26 @@ class MainWindow(QWidget):
         file_name, _ = QFileDialog.getOpenFileName(self, "Выберите файл аннотаций", "",
                                                    "Text Files (*.txt);;All Files (*)", options=options)
         if file_name:
-            self.iterator = It.Iterator(file_name)
-            self.show_next_image()  # Показываем первое изображение
+            try:
+                self.iterator = It.Iterator(file_name)
+                self.show_next_image()
+            except Exception as e:
+                QMessageBox.critical(self, "Ошибка", f"Не удалось загрузить файл аннотаций: {e}")
 
     def show_next_image(self):
         if self.iterator:
             try:
                 image_path = next(self.iterator)
                 pixmap = QPixmap(image_path)
+                if pixmap.isNull():
+                    raise FileNotFoundError(f"Изображение по пути '{image_path}' не найдено.")
                 self.image_label.setPixmap(pixmap)
             except StopIteration:
                 self.image_label.setText("Изображения закончились")
+            except FileNotFoundError as e:
+                QMessageBox.critical(self, "Ошибка", str(e))
+            except Exception as e:
+                QMessageBox.critical(self, "Ошибка", f"Произошла ошибка при загрузке изображения: {e}")
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
